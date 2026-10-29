@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # GENERADO desde PokeAPI (pokemon_stats.csv): num -> (hp, atk, def, vel)
 BASE_STATS = {
     1: (45, 49, 49, 45),

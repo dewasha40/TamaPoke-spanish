@@ -1,155 +1,154 @@
 # TamaPoke
 
-[![Flash in browser](https://img.shields.io/badge/flash-in%20browser-FF6B00?logo=googlechrome&logoColor=white)](https://socquique.github.io/TamaPoke/web/)
-[![MakerWorld](https://img.shields.io/badge/MakerWorld-3D%20case-00AE42?logo=bambulab&logoColor=white)](https://makerworld.com/es/models/2937822-tamapoke-a-pokemon-pokeball-tamagotchi)
-![Board](https://img.shields.io/badge/board-ESP32--S3%20round%20AMOLED-E7352C?logo=espressif&logoColor=white)
+[![Instalar en el navegador](https://img.shields.io/badge/instalar-en%20el%20navegador-FF6B00?logo=googlechrome&logoColor=white)](https://socquique.github.io/TamaPoke/web/)
+[![MakerWorld](https://img.shields.io/badge/MakerWorld-carcasa%203D-00AE42?logo=bambulab&logoColor=white)](https://makerworld.com/es/models/2937822-tamapoke-a-pokemon-pokeball-tamagotchi)
+![Placa](https://img.shields.io/badge/placa-ESP32--S3%20AMOLED%20redonda-E7352C?logo=espressif&logoColor=white)
 ![Firmware](https://img.shields.io/badge/firmware-v1.17-8A2BE2)
 [![CI](https://github.com/socquique/TamaPoke/actions/workflows/ci.yml/badge.svg)](https://github.com/socquique/TamaPoke/actions/workflows/ci.yml)
-![Code](https://img.shields.io/badge/code-MIT-blue)
-![Languages](https://img.shields.io/badge/languages-8-FFCB05)
-[![Stars](https://img.shields.io/github/stars/socquique/TamaPoke?style=flat&logo=github&color=yellow)](https://github.com/socquique/TamaPoke/stargazers)
+![Licencia](https://img.shields.io/badge/licencia-MIT-blue)
+![Idiomas](https://img.shields.io/badge/idiomas-8-FFCB05)
+[![Estrellas](https://img.shields.io/github/stars/socquique/TamaPoke?style=flat&logo=github&color=yellow)](https://github.com/socquique/TamaPoke/stargazers)
 
-A gen-1-Pokémon-inspired tamagotchi for the
-**Waveshare ESP32-S3-Touch-AMOLED-1.75** (round 466×466 AMOLED, CO5300 driver
-over QSPI, CST9217 touch over I2C). Raise any of the 151, evolve it, train it
-and complete them all (shinies included).
+Un tamagotchi inspirado en la primera generación de Pokémon para la
+**Waveshare ESP32-S3-Touch-AMOLED-1.75** (AMOLED redonda de 466×466, driver CO5300
+sobre QSPI, táctil CST9217 sobre I2C). Cría a cualquiera de los 151, evoluciónalo,
+entrénalo y complétalos todos (incluidos los shinies).
 
-> **Personal, non-commercial fan project.** Code is MIT; the sprites are from
-> PMD SpriteCollab (CC BY-NC, Pokémon © Nintendo/Game Freak), and the 3D case is
-> CC BY-NC-SA. See **[License](#license)** and **Credits**.
+> **Proyecto personal de fans, sin fines comerciales.** El código es MIT; los sprites
+> proceden de PMD SpriteCollab (CC BY-NC, Pokémon © Nintendo/Game Freak), y la
+> carcasa 3D es CC BY-NC-SA. Ver **[Licencia](#licencia)** y **Créditos**.
 
-🔴 **3D-printed Pokéball case + print profiles → [on MakerWorld](https://makerworld.com/es/models/2937822-tamapoke-a-pokemon-pokeball-tamagotchi)** · flash it in your browser → **[web installer](https://socquique.github.io/TamaPoke/web/)**
+🔴 **Carcasa de Pokéball impresa en 3D + perfiles de impresión → [en MakerWorld](https://makerworld.com/es/models/2937822-tamapoke-a-pokemon-pokeball-tamagotchi)** · instálalo desde tu navegador → **[instalador web](https://socquique.github.io/TamaPoke/web/)**
 
-## Status
+## Estado
 
-Running on hardware. Implemented: the 151 + shinies animated from microSD, full
-life cycle (egg by rarity → evolution → farewell/release/runaway, each gated
-behind a decision dialog), bred-Pokédex with gallery, battle stats (genes +
-training), retention hooks (streak / bond / medals / name), biome + real-time
-backgrounds, ball minigame, training bag, animated bath, RTC with offline
-progression, battery (AXP2101) and PWR button, anti-burn-in dimming,
-**sound (ES8311)**, **8 UI languages (English default)**, **starter choice on
-first run**, and a one-click **web installer**.
+Funcionando en hardware. Implementado: los 151 + shinies animados desde microSD,
+ciclo de vida completo (huevo por rareza → evolución → despedida/suelta/fuga, cada
+uno tras un diálogo de decisión), Pokédex con galería, estadísticas de combate
+(genes + entrenamiento), ganchos de retención (racha / vínculo / medallas / nombre),
+fondos por bioma y en tiempo real, minijuego de la bola, saco de entrenamiento,
+baño animado, RTC con progresión offline, batería (AXP2101) y botón PWR, atenuación
+anti-quemado de pantalla, **sonido (ES8311)**, **8 idiomas de interfaz (inglés por defecto)**,
+**elección de inicial al arrancar por primera vez** y un **instalador web** de un solo clic.
 
-Pending: wild encounters / battle (designed, not implemented), 3D case, soak
-test. See **Roadmap**.
+Pendiente: encuentros salvajes / combate (diseñado, no implementado), carcasa 3D final,
+test de estabilidad prolongado. Ver **Hoja de ruta**.
 
-## Game manual (the actual numbers)
+## Manual del juego (los números reales)
 
-A quick reference to how the game really works (values straight from the code).
+Una referencia rápida de cómo funciona realmente el juego (valores directos del código).
 
-### Time & leveling
-- **1 real minute = 1 in-game minute.** Your Pokémon gains **+1 level every hour**
-  of real time. Leveling is purely time-based — caring well doesn't speed it up,
-  but neglect *delays evolution*.
-- It keeps **aging while powered off** (the RTC runs), catching up to **2 weeks** max.
+### Tiempo y niveles
+- **1 minuto real = 1 minuto en el juego.** Tu Pokémon gana **+1 nivel cada hora**
+  de tiempo real. La subida de nivel depende puramente del tiempo; cuidarlo bien
+  no lo acelera, pero el descuido *retrasa la evolución*.
+- Sigue **envejeciendo mientras está apagado** (el RTC sigue corriendo), recuperando
+  hasta un máximo de **2 semanas**.
 
-### The four stats (0–100)
-Needs: **FOOD**, **JOY**, **ENE** (energy), **HYG** (hygiene). Start 80 / 80 / 80 / 100.
-While **awake**, per minute:
+### Las cuatro estadísticas (0–100)
+Necesidades: **HAMBRE** (FOOD), **FELICIDAD** (JOY), **ENE** (energía), **HIG** (higiene).
+Empiezan en 80 / 80 / 80 / 100. Mientras está **despierto**, por minuto:
 
-| Stat | Drain/min | Notes |
+| Stat | Gasto/min | Notas |
 |---|---|---|
-| FOOD | −2 | |
-| ENE | −1 | −1 extra if overweight (weight > 50 → sluggish) |
-| HYG | −1 | **−4 more per poop** on screen (max 3 poops) |
-| JOY | −1 | **−2 extra** if FOOD < 30, **−2 extra** if HYG < 30 |
+| HAMBRE | −2 | |
+| ENE | −1 | −1 extra si tiene sobrepeso (peso > 50 → lento) |
+| HIG | −1 | **−4 más por caca** en pantalla (máx 3 cacas) |
+| FELICIDAD | −1 | **−2 extra** si HAMBRE < 30, **−2 extra** si HIG < 30 |
 
-- ~**15 %/min** chance to poop (only if FOOD > 40). Poops tank hygiene fast.
-- **Care slip-up** = letting any stat hit **≤ 10** (30-min cooldown so it counts once).
-  Each slip-up **delays evolution by 1 level** and cools the bond.
+- ~**15 %/min** de probabilidad de hacer caca (solo si HAMBRE > 40). Las cacas hunden la higiene rápido.
+- **Descuidar el cuidado** = dejar que cualquier stat baje de **≤ 10** (cooldown de 30 min para que cuente una vez).
+  Cada descuido **retrasa la evolución en 1 nivel** y enfría el vínculo.
 
-### Actions
-- 🍎 **Berry** (3 flavors): +25 FOOD. Each species has a **hidden favorite flavor**
-  → +35 FOOD, +10 JOY, ♥, bond, and it gets revealed.
-- 🍬 **Candy:** +10 FOOD, +12 JOY, but **+12 weight** (fattening).
-- ⚽ **Play / minigame:** +JOY, −ENE; the minigame trains **SPEED** and burns weight.
-- 🥊 **Training bag:** trains **STRENGTH** (~4 hits = 1 pt, cap +18/session), tires it.
-- 🫧 **Bath:** clears poops, HYG → 100.
-- 👆 **Pet it:** +5 JOY + bond.
-- 🌙 **Sleep:** rest — ENE **+6/min**, needs drain ~**4× slower** with floors
-  (FOOD 30 / JOY 35 / HYG 45). No poops, no slip-ups, can't run away while asleep.
+### Acciones
+- 🍎 **Baya** (3 sabores): +25 HAMBRE. Cada especie tiene un **sabor favorito oculto**
+  → +35 HAMBRE, +10 FELICIDAD, ♥, vínculo, y se revela el sabor.
+- 🍬 **Caramelo:** +10 HAMBRE, +12 FELICIDAD, pero **+12 de peso** (engorda).
+- ⚽ **Jugar / minijuego:** +FELICIDAD, −ENE; el minigame entrena la **VELOCIDAD** y quema peso.
+- 🥊 **Saco de boxeo:** entrena la **FUERZA** (~4 golpes = 1 pt, límite +18/sesión), lo cansa.
+- 🫧 **Baño:** limpia las cacas, HIG → 100.
+- 👆 **Acariciar:** +5 FELICIDAD + vínculo.
+- 🌙 **Dormir:** descanso — ENE **+6/min**, las necesidades bajan ~**4 veces más lento**
+  con mínimos (HAMBRE 30 / FELICIDAD 35 / HIG 45). No hace caca ni hay descuidos,
+  y no puede escaparse mientras duerme.
 
-### Eggs & who you get (spawn odds)
-- **First ever pet:** you pick a starter — **Bulbasaur / Charmander / Squirtle**.
-- Hatch the egg: tap it **3×** (or wait — it hatches on its own).
-- Every later egg rolls a **rarity tier** (over the ~79 base forms that come from eggs):
+### Huevos y quién te toca (probabilidades)
+- **Primer compañero:** eliges un inicial — **Bulbasaur / Charmander / Squirtle**.
+- Eclosiona el huevo: toca **3 veces** (o espera, eclosiona solo).
+- Cada huevo posterior lanza una **categoría de rareza** (sobre las ~79 formas base que salen de huevos):
 
-| Tier | Base chance | After a proper goodbye | # species |
+| Categoría | Prob. base | Tras una despedida correcta | # especies |
 |---|---|---|---|
-| ✨ Legendary | ~3 %\* | ~10 % | 5 |
-| 🔵 Rare | ~27 % | ~45 % | 27 |
-| ⚪ Common | the rest | the rest | 47 |
+| ✨ Legendario | ~3 %\* | ~10 % | 5 |
+| 🔵 Raro | ~27 % | ~45 % | 27 |
+| ⚪ Común | el resto | el resto | 47 |
 
-  \* Legendaries only start appearing once you've **registered ≥ 25** Pokémon.
-- A daily **streak** and high **bond** push rare/legendary odds higher.
-- A clean **goodbye blesses** the next egg; a **run-away curses** it (forces Common).
-- Within a tier it favors species whose **evolution line you haven't finished** (so
-  all 151 are completable).
-- **Shiny:** base **1 / 48** (→ **1 / 24** right after a goodbye), improved by
-  streak/bond down to a best of **1 / 8**. Tracked separately in the dex.
-- Every hatch rolls unique **genes** (90–110 % per stat) — no two are identical.
+  \* Los legendarios solo empiezan a aparecer cuando has **registrado ≥ 25** Pokémon.
+- La **racha** diaria y un alto **vínculo** aumentan las probabilidades de raros/legendarios.
+- Una **despedida limpia bendice** el siguiente huevo; una **fuga lo maldice** (fuerza Común).
+- Dentro de una categoría, favorece a las especies cuya **línea evolutiva no has terminado** (para que los 151 sean completables).
+- **Shiny:** base **1 / 48** (→ **1 / 24** justo tras una despedida), mejorado por la
+  racha/vínculo hasta un máximo de **1 / 8**. Se registran aparte en la Pokédex.
+- Cada eclosión genera **genes** únicos (90–110 % por stat); no hay dos idénticos.
 
-### Evolution
-- Triggers when **level ≥ its evolution level** (16 for most base forms; ~30 for
-  stone-style, ~40 for trade-style) **and every stat ≥ 40** at that moment.
-- **Never automatic** — a button appears and **you tap to witness it** (with a
-  flicker between the old and new form). Each **slip-up delays it by 1 level**.
-- You can **decline** ("keep form"); it re-offers at the next level.
-- *Eevee* branches toward whichever evolution you're still missing.
+### Evolución
+- Se activa cuando el **nivel ≥ su nivel de evolución** (16 para la mayoría; ~30 para
+  estilo piedra, ~40 para estilo intercambio) **y cada stat ≥ 40** en ese momento.
+- **Nunca es automática**: aparece un botón y **tú tocas para presenciarla** (con un
+  parpadeo entre la forma vieja y la nueva). Cada **descuido la retrasa 1 nivel**.
+- Puedes **rechazarla** ("mantener forma"); se vuelve a ofrecer al siguiente nivel.
+- *Eevee* evoluciona hacia la rama que aún te falte en la Pokédex.
 
-### The three endings (you choose & witness each — none auto-fire)
-- 💛 **Farewell** — when it's a **final form** that has lived **3 days**. A button
-  appears; triggering it **blesses your next egg**. You can **postpone** ("stay
-  together", re-offered in a day). The good ending.
-- 💔 **Run-away** — if you let **all four stats sit at 0 for a full hour**. A single
-  act of care cancels it. It **curses the next egg** (forces Common). The sad ending.
-- 👋 **Release** — long-press the creature to let it go on your terms (neutral).
+### Los tres finales (tú eliges y presencias cada uno; ninguno es automático)
+- 💛 **Despedida** — cuando es una **forma final** que ha vivido **3 días**. Aparece un botón;
+  activarlo **bendice tu próximo huevo**. Puedes **posponerlo** ("quedarnos juntos",
+  se vuelve a ofrecer en un día). El final bueno.
+- 💔 **Fuga** — si dejas que **las cuatro barras lleguen a 0 durante una hora completa**.
+  Un solo acto de cuidado lo cancela. **Maldice el siguiente huevo** (fuerza Común). El final triste.
+- 👋 **Liberar** — pulsa prolongadamente sobre la criatura para dejarla ir (neutral).
 
-After any ending, a **new egg** appears.
+Tras cualquier final, aparece un **nuevo huevo**.
 
-### Bonds, streaks, medals, Pokédex
-- **Streak** (player-wide, survives across pets): first care each real day; milestones
-  at **3 / 7 / 30 / 100** days; skipping a day breaks it.
-- **Bond** (per pet, resets on hatch): grows with affection (**cap +8/day**), cools on
-  neglect. Both streak & bond improve egg/shiny odds.
-- **8 medals** (Lv10/25/50, favorite berry found, 7-day streak, max bond, final form,
-  "fit" = weight 0 & no slip-ups), per-pet + a global counter.
-- **Pokédex:** raising a species registers it; **151 + shinies** to complete.
+### Vínculo, racha, medallas, Pokédex
+- **Racha** (del jugador, sobrevive entre mascotas): primer cuidado cada día real; hitos
+  a los **3 / 7 / 30 / 100** días; saltarse un día la rompe.
+- **Vínculo** (por mascota, se reinicia al nacer): crece con el afecto (**límite +8/día**),
+  se enfría con el descuido. Tanto la racha como el vínculo mejoran las probabilidades de huevo/shiny.
+- **8 medallas** (Niv 10/25/50, baya favorita encontrada, racha de 7 días, vínculo máximo,
+  forma final, "en forma" = peso 0 y sin descuidos), por mascota + un contador global.
+- **Pokédex:** criar una especie la registra; **151 + shinies** por completar.
 
-### Battle stats
-ATK / DEF / SPD = real **Gen-1 base** × genes + level + training (STRENGTH ← bag,
-SPEED ← minigame, DEFENSE ← 12 h of unbroken good care). *(Battles: on the roadmap.)*
+### Estadísticas de combate
+ATK / DEF / VEL = **base real de Gen-1** × genes + nivel + entrenamiento (FUERZA ← saco,
+VELOCIDAD ← minijuego, DEFENSA ← 12 h seguidas de buen cuidado). *(Combates: en la hoja de ruta).*
 
 ## Hardware
 
-- Board: [ESP32-S3-Touch-AMOLED-1.75](https://www.waveshare.com/wiki/ESP32-S3-Touch-AMOLED-1.75)
-  — get the **Standard** (no case) or **-G** (GPS, also fits) version; **not the "-B"**
-  (ships with a protective case that won't fit). The separate "1.75**C**" is a different board.
-  - **Where to buy**: [Waveshare store](https://www.waveshare.com/esp32-s3-touch-amoled-1.75.htm) (often on backorder), or the **-G** on Amazon — TamaPoke leaves the GPS unused, the board is otherwise identical: 🇺🇸 [.com](https://www.amazon.com/dp/B0F7XWWMJW?tag=capsuleradar-20) · 🇪🇸 [.es](https://www.amazon.es/dp/B0F7XWWMJW?tag=capsuleradar-21) · 🇩🇪 [.de](https://www.amazon.de/dp/B0F7XWWMJW?tag=capsulerada03-21) · 🇬🇧 [.co.uk](https://www.amazon.co.uk/dp/B0F7XWWMJW?tag=capsulerada0d-21) · 🇮🇹 [.it](https://www.amazon.it/dp/B0F7XWWMJW?tag=capsulerada08-21) · 🇫🇷 [.fr](https://www.amazon.fr/dp/B0F7XWWMJW?tag=capsulerada0e-21) · 🇯🇵 [.co.jp](https://www.amazon.co.jp/dp/B0F7XWWMJW?tag=capsuleradar-22) · 🇨🇦 [.ca](https://www.amazon.ca/dp/B0F7XWWMJW?tag=capsulerada09-20). Optional battery — 1100 mAh protected LiPo, MX1.25 plug: 🇪🇸 [.es](https://www.amazon.es/dp/B0F1FGZQS5?tag=capsuleradar-21) · 🇺🇸 [.com](https://www.amazon.com/dp/B0F1FGZQS5?tag=capsuleradar-20) · 🇮🇹 [.it](https://www.amazon.it/dp/B0F1FGZQS5?tag=capsulerada08-21) · 🇫🇷 [.fr](https://www.amazon.fr/dp/B0F1FGZQS5?tag=capsulerada0e-21) (DE/UK: that exact pack is not listed — search for a *protected* 3.7 V LiPo, ~1100 mAh, size **102540**, 1.25 mm micro-JST plug) — check plug polarity against the board first. <sub>Amazon links are affiliate links; as an Amazon Associate I earn from qualifying purchases.</sub>
-  - **MicroSD card** (holds the sprite set — any small, class-10 card works): 🇪🇸 [.es](https://www.amazon.es/s?k=microsd+32gb&tag=capsuleradar-21) · 🇺🇸 [.com](https://www.amazon.com/s?k=microsd+32gb&tag=capsuleradar-20) · 🇩🇪 [.de](https://www.amazon.de/s?k=microsd+32gb&tag=capsulerada03-21) · 🇬🇧 [.co.uk](https://www.amazon.co.uk/s?k=microsd+32gb&tag=capsulerada0d-21) · 🇮🇹 [.it](https://www.amazon.it/s?k=microsd+32gb&tag=capsulerada08-21) · 🇫🇷 [.fr](https://www.amazon.fr/s?k=microsd+32gb&tag=capsulerada0e-21) · 🇯🇵 [.co.jp](https://www.amazon.co.jp/s?k=microsd+32gb&tag=capsuleradar-22) · 🇨🇦 [.ca](https://www.amazon.ca/s?k=microsd+32gb&tag=capsulerada09-20)
-- Round 466×466 AMOLED, **CO5300** driver (QSPI, 80 MHz)
-- Capacitive touch **CST9217** (I2C, address 0x5A)
-- **AXP2101** (power management + battery + PWR button), **PCF85063** (RTC),
-  microSD slot, **ES8311** audio codec (→ amplifier → external speaker on the
-  MX1.25 connector)
-- Pins taken from the [official Waveshare repo](https://github.com/waveshareteam/ESP32-S3-Touch-AMOLED-1.75) (see `pin_config.h`)
+- Placa: [ESP32-S3-Touch-AMOLED-1.75](https://www.waveshare.com/wiki/ESP32-S3-Touch-AMOLED-1.75)
+  — consigue la versión **Standard** (sin carcasa) o **-G** (GPS, también sirve); **no la "-B"**
+  (viene con una carcasa protectora que no encaja). La "1.75**C**" es una placa distinta.
+  - **Dónde comprar**: [Tienda Waveshare](https://www.waveshare.com/esp32-s3-touch-amoled-1.75.htm) (a veces sin stock), o la **-G** en Amazon — TamaPoke no usa el GPS, la placa es idéntica por lo demás: 🇺🇸 [.com](https://www.amazon.com/dp/B0F7XWWMJW?tag=capsuleradar-20) · 🇪🇸 [.es](https://www.amazon.es/dp/B0F7XWWMJW?tag=capsuleradar-21) · 🇩🇪 [.de](https://www.amazon.de/dp/B0F7XWWMJW?tag=capsulerada03-21) · 🇬🇧 [.co.uk](https://www.amazon.co.uk/dp/B0F7XWWMJW?tag=capsulerada0d-21) · 🇮🇹 [.it](https://www.amazon.it/dp/B0F7XWWMJW?tag=capsulerada08-21) · 🇫🇷 [.fr](https://www.amazon.fr/dp/B0F7XWWMJW?tag=capsulerada0e-21) · 🇯🇵 [.co.jp](https://www.amazon.co.jp/dp/B0F7XWWMJW?tag=capsuleradar-22) · 🇨🇦 [.ca](https://www.amazon.ca/dp/B0F7XWWMJW?tag=capsulerada09-20). Batería opcional — LiPo protegida de 1100 mAh, conector MX1.25: 🇪🇸 [.es](https://www.amazon.es/dp/B0F1FGZQS5?tag=capsuleradar-21) · 🇺🇸 [.com](https://www.amazon.com/dp/B0F1FGZQS5?tag=capsuleradar-20) · 🇮🇹 [.it](https://www.amazon.it/dp/B0F1FGZQS5?tag=capsulerada08-21) · 🇫🇷 [.fr](https://www.amazon.fr/dp/B0F1FGZQS5?tag=capsulerada0e-21) (DE/UK: ese pack exacto no aparece, busca una LiPo de 3.7 V *protegida*, ~1100 mAh, tamaño **102540**, conector micro-JST de 1.25 mm) — comprueba la polaridad del conector con la placa antes de enchufar.
+  - **Tarjeta MicroSD** (guarda los sprites; cualquier tarjeta pequeña de clase 10 sirve): 🇪🇸 [.es](https://www.amazon.es/s?k=microsd+32gb&tag=capsuleradar-21) · 🇺🇸 [.com](https://www.amazon.com/s?k=microsd+32gb&tag=capsuleradar-20) · 🇩🇪 [.de](https://www.amazon.de/s?k=microsd+32gb&tag=capsulerada03-21) · 🇬🇧 [.co.uk](https://www.amazon.co.uk/s?k=microsd+32gb&tag=capsulerada0d-21) · 🇮🇹 [.it](https://www.amazon.it/s?k=microsd+32gb&tag=capsulerada08-21) · 🇫🇷 [.fr](https://www.amazon.fr/s?k=microsd+32gb&tag=capsulerada0e-21) · 🇯🇵 [.co.jp](https://www.amazon.co.jp/s?k=microsd+32gb&tag=capsuleradar-22) · 🇨🇦 [.ca](https://www.amazon.ca/s?k=microsd+32gb&tag=capsulerada09-20)
+- AMOLED redonda de 466×466, driver **CO5300** (QSPI, 80 MHz)
+- Táctil capacitivo **CST9217** (I2C, dirección 0x5A)
+- **AXP2101** (gestión de energía + batería + botón PWR), **PCF85063** (RTC), ranura microSD, codec de audio **ES8311** (→ amplificador → altavoz externo en el conector MX1.25)
+- Pines tomados del [repositorio oficial de Waveshare](https://github.com/waveshareteam/ESP32-S3-Touch-AMOLED-1.75) (ver `pin_config.h`)
 
-## Libraries (Arduino IDE / arduino-cli)
+## Librerías (Arduino IDE / arduino-cli)
 
-| Library | Author | Use |
+| Librería | Autor | Uso |
 |---|---|---|
-| GFX Library for Arduino (`Arduino_GFX`) | moononournation | CO5300 over QSPI + framebuffer in PSRAM |
-| SensorLib | Lewis He | CST9217 touch + PCF85063 RTC |
-| XPowersLib | Lewis He | AXP2101 PMU (battery, brightness, PWR button) |
-| U8g2 | olikraus | CJK glyphs (`unifont_t_japanese3`, the only Japanese subset that also carries `！？。、「」`; `unifont_t_korean2` for Hangul, 2350 syllables against korean1's 478); only the font data is used, not its display driver |
-| ESP_I2S (bundled in the ESP32 core) | Espressif | I2S to the ES8311 codec |
+| GFX Library for Arduino (`Arduino_GFX`) | moononournation | CO5300 sobre QSPI + framebuffer en PSRAM |
+| SensorLib | Lewis He | Táctil CST9217 + RTC PCF85063 |
+| XPowersLib | Lewis He | PMU AXP2101 (batería, brillo, botón PWR) |
+| U8g2 | olikraus | Glifos CJK (`unifont_t_japanese3`, el único subconjunto japonés que también lleva `！？。、「」`; `unifont_t_korean2` para Hangul); solo se usan los datos de la fuente, no su driver de pantalla |
+| ESP_I2S (incluida en el core de ESP32) | Espressif | I2S para el codec ES8311 |
 
-## IDE setup / build
+## Configuración del IDE / compilación
 
-- Board: **ESP32S3 Dev Module** · Flash **16MB** · PSRAM **OPI PSRAM**
-  (required: the 466×466×16-bit framebuffer ≈ 434 KB lives in PSRAM) ·
-  Partition Scheme with FAT (e.g. `16M Flash (3MB APP/9MB FATFS)`) ·
+- Placa: **ESP32S3 Dev Module** · Flash **16MB** · PSRAM **OPI PSRAM**
+  (obligatorio: el framebuffer de 466×466×16-bit ≈ 434 KB vive en PSRAM) ·
+  Esquema de particiones con FAT (p. ej. `16M Flash (3MB APP/9MB FATFS)`) ·
   USB CDC On Boot **Enabled**
 
 ```bash
@@ -158,220 +157,144 @@ arduino-cli compile --fqbn "$FQBN" .
 arduino-cli upload -p /dev/cu.usbmodemXXXX --fqbn "$FQBN" .
 ```
 
-### Easiest install: the web installer
+### Instalación más fácil: el instalador web
 
-`web/index.html` flashes the firmware (ESP Web Tools) and pushes the sprites to
-the SD over Web Serial, no Arduino needed. Serve it over HTTPS or `localhost`
-(secure context) and open it in **Chrome/Edge**. See [`web/README.md`](web/README.md).
+`web/index.html` graba el firmware (ESP Web Tools) y envía los sprites a la SD por Web Serial, sin necesidad de Arduino. Sírvelo por HTTPS o `localhost` y ábrelo en **Chrome/Edge**. Ver [`web/README.md`](web/README.md).
 
-### Generate and load the sprites yourself
+### Generar y cargar los sprites tú mismo
 
-All sprites come from **[PMD SpriteCollab](https://github.com/PMDCollab/SpriteCollab)**
-(CC BY-NC). You can regenerate the whole set and load it onto your board with the
-pipeline below — the firmware accepts files over USB (PUT protocol with per-block
-ACK), so you don't have to remove the card (it formats the SD to FAT if needed).
+Todos los sprites proceden de **[PMD SpriteCollab](https://github.com/PMDCollab/SpriteCollab)** (CC BY-NC). Puedes regenerar todo el conjunto y cargarlo en tu placa con el flujo siguiente — el firmware acepta archivos por USB (protocolo PUT con ACK por bloque), así que no tienes que sacar la tarjeta (formatea la SD a FAT si es necesario).
 
 ```bash
-python3 tools/pack_pmd.py       # fetch + pack PMD sprites: the 151 + shiny -> tools/sdcard/mons/p[s]NNN.bin
-python3 tools/make_thumbs.py    # Pokédex thumbnails (from the PMD sprites) -> thumbs.bin
-python3 tools/send_sd.py        # send tools/sdcard/mons/* to the board's SD over USB
+python3 tools/pack_pmd.py       # descarga + empaqueta sprites PMD: los 151 + shiny -> tools/sdcard/mons/p[s]NNN.bin
+python3 tools/make_thumbs.py    # miniaturas de la Pokédex (desde los sprites PMD) -> thumbs.bin
+python3 tools/send_sd.py        # envía tools/sdcard/mons/* a la SD de la placa por USB
 ```
 
-To make the **one-click web-installer bundle** instead of sending over USB:
+Para crear el **paquete del instalador web** en lugar de enviarlo por USB:
 
 ```bash
-python3 tools/pack_bundle.py    # bundle tools/sdcard/mons/* into web/sprites.pak
+python3 tools/pack_bundle.py    # empaqueta tools/sdcard/mons/* en web/sprites.pak
 ```
 
-Then load it from the web installer's **"Load sprites"** button (or `send_sd.py`
-above). `pack_pmd.py` also takes individual dex numbers, e.g. `pack_pmd.py 7 25`.
-(~40 MB total, all PMD. Versioned under `tools/sdcard/`.)
+Luego cárgalo desde el botón **"Cargar sprites"** del instalador web (o `send_sd.py`). `pack_pmd.py` también acepta números de dex individuales, p. ej. `pack_pmd.py 7 25`. (~40 MB en total. Versionado en `tools/sdcard/`.)
 
-## How to play
+## Cómo jugar
 
-On first run you **choose a starter** (Bulbasaur / Charmander / Squirtle). After
-that you start with an **egg**. Tap it 3 times or wait and it hatches. From then
-on, care for your companion:
+Al arrancar por primera vez **eliges un inicial** (Bulbasaur / Charmander / Squirtle). Después, empiezas con un **huevo**. Tócalo 3 veces o espera y nacerá. A partir de ahí, cuida de tu compañero:
 
-**Four stats** that decay: **FOOD**, **JOY**, **ENE** (energy), **HYG** (hygiene).
-If one bottoms out it counts as a *slip-up*.
+**Cuatro estadísticas** que decaen: **HAMBRE**, **FELICIDAD**, **ENE** (energía), **HIG** (higiene). Si una llega al mínimo, cuenta como un *descuido*.
 
-**Buttons (bottom arc, icons):**
-- 🍎 **Feed** → food menu: 3 berries (each species has a hidden favourite that
-  gives a bonus) and a candy (+happiness but it fattens; weight makes it sluggish).
-- ⚽ **Play** → the pokeball minigame (trains SPEED).
-- 🌙 **Light** → sleep/wake (recovers energy, dims the screen). While asleep,
-  needs decay much slower (rest).
-- 🫧 **Bath** → a foam scene that cleans up the poops.
+**Botones (arco inferior, iconos):**
+- 🍎 **Alimentar** → menú de comida: 3 bayas (cada especie tiene una favorita oculta que da un bonus) y un caramelo (+felicidad pero engorda; el peso lo vuelve lento).
+- ⚽ **Jugar** → el minijuego de la pokéball (entrena la VELOCIDAD).
+- 🌙 **Luz** → dormir/despertar (recupera energía, atenúa la pantalla). Mientras duerme, las necesidades bajan mucho más lento (descanso).
+- 🫧 **Baño** → una escena de espuma que limpia las cacas.
 
-**Touch gestures:**
-- Tap the creature = pet it (+happiness, bond).
-- Horizontal swipe = open the **Pokédex / gallery**.
-- Vertical swipe up = open the **stat card** (4 pages: Profile / Battle / Medals /
-  Progress; swipe between them; tap the name on Profile to rename; on Battle the
-  "Train strength" button opens the bag).
-- Swipe down = **set the clock** and pick the **language** + sound on/off.
-- Long press (3 s) on the creature = **release** dialog.
+**Gestos táctiles:**
+- Tocar a la criatura = acariciarla (+felicidad, vínculo).
+- Deslizar horizontal = abrir la **Pokédex / galería**.
+- Deslizar vertical arriba = abrir la **ficha** (4 páginas: Perfil / Combate / Medallas / Progreso; desliza entre ellas; toca el nombre en Perfil para cambiarlo; en Combate el botón "Entrenar fuerza" abre el saco).
+- Deslizar abajo = **ajustar el reloj** y elegir el **idioma** + sonido on/off.
+- Pulsación larga (3 s) sobre la criatura = diálogo de **liberar**.
 
-**Physical PWR button:** short = screen on/off · long (4 s) = full power-off
-(the RTC stays alive, so time passes even while it's off).
+**Botón físico PWR:** corto = encender/apagar pantalla · largo (4 s) = apagado total (el RTC sigue vivo, así que el tiempo pasa aunque esté apagado).
 
-## Decisions: you choose, and you watch
+## Decisiones: tú eliges y tú observas
 
-The three life-cycle endings and evolution **don't happen on their own** — when
-the conditions are met a button appears and you tap it (so you're present to
-witness it), each opening a two-option dialog:
+Los tres finales del ciclo de vida y la evolución **no ocurren solos**: cuando se cumplen las condiciones, aparece un botón y tú lo tocas (para que estés presente), cada uno abriendo un diálogo de dos opciones:
 
-- **Evolution** (red button): *Evolve* (epic animation: halo, rays, sparkles and
-  a **flicker between the old and new form**) or *Keep form* (re-offered next level).
-- **Farewell** (gold button, final form + 3 days): *Say goodbye* (warm farewell,
-  rising hearts → new egg) or *Stay together* (keep your companion; re-offered in
-  a day). Tension: a maxed-out friend vs. completing the Pokédex.
-- **Runaway** (dark button, total neglect for 1 h): a somber "feels abandoned"
-  ending in the rain — caring for the creature cancels it.
+- **Evolución** (botón rojo): *Evolucionar* (animación épica: halo, rayos, destellos y un **parpadeo entre la forma vieja y la nueva**) o *Mantener forma* (se vuelve a ofrecer al siguiente nivel).
+- **Despedida** (botón dorado, forma final + 3 días): *Decir adiós* (despedida cálida, corazones ascendentes → nuevo huevo) o *Quedarnos juntos* (mantén a tu compañero; se vuelve a ofrecer en un día). Tensión: un amigo al máximo frente a completar la Pokédex.
+- **Fuga** (botón oscuro, descuido total durante 1 h): un final sombrío de "se siente abandonado" bajo la lluvia — cuidar a la criatura lo cancela.
 
-## Sprites: PMD SpriteCollab everywhere
+## Sprites: PMD SpriteCollab en todas partes
 
-- **PMD SpriteCollab** (everything — main screen, stat card, minigame **and the
-  Pokédex grid + detail view**): behaviour sprites — `tools/pack_pmd.py` packs
-  actions (Idle, Walk L/R, Sleep, Eat, Hurt, Attack, Pose, Nod, DeepBreath) into
-  the multi-action **TPK2** format (`/mons/pNNN.bin`). The engine in `TamaPoke.ino`
-  makes the creature wander, gesture, curl up to sleep, chew and wince. Anchored by
-  the feet (lowest content row), not the canvas. The Pokédex thumbnails
-  (`thumbs.bin`, TPTH) are derived from these by `tools/make_thumbs.py`.
-- **In-house workshop** (`tools/sprites.py`): 9 primitive-drawn sprites as a
-  no-SD fallback + the UI icons. Generates `species.h`. Preview in
-  `tools/sheet.png`, emit with `python3 tools/sprites.py emit`.
+- **PMD SpriteCollab** (todo: pantalla principal, ficha, minijuego **y la cuadrícula de la Pokédex + vista detalle**): sprites de comportamiento — `tools/pack_pmd.py` empaqueta acciones (Idle, Walk L/R, Sleep, Eat, Hurt, Attack, Pose, Nod, DeepBreath) en el formato multi-acción **TPK2** (`/mons/pNNN.bin`). El motor en `TamaPoke.ino` hace que la criatura deambule, gesticule, se enrosque para dormir, mastique y se queje. Anclados por los pies (fila más baja), no por el lienzo. Las miniaturas de la Pokédex (`thumbs.bin`, TPTH) se derivan de estos mediante `tools/make_thumbs.py`.
+- **Taller propio** (`tools/sprites.py`): 9 sprites dibujados con primitivas como respaldo sin SD + los iconos de la interfaz. Genera `species.h`. Previsualización en `tools/sheet.png`, emitir con `python3 tools/sprites.py emit`.
 
-`sdmon.h/.cpp` loads the PMD sprites into PSRAM (`PmdMon` for TPK2) plus the
-thumbnails (`SdThumbs`). `SdMon` (TPK1) remains as a dormant legacy fallback only.
+`sdmon.h/.cpp` carga los sprites PMD en PSRAM (`PmdMon` para TPK2) además de las miniaturas (`SdThumbs`). `SdMon` (TPK1) queda como un respaldo de legado inactivo.
 
-## Pokédex and species data
+## Pokédex y datos de especies
 
-`tools/dex_data.py` is the **single source**: name, slug, type (accent colour +
-background biome), evolution line with gen-1 levels, rarities and starters.
-`tools/dex_stats.py` has the real base stats (from PokéAPI). `tools/gen_names.py`
-pulls the **official localized names** from PokéAPI into `tools/dex_names.py`
-(only French and German differ in gen 1; Spanish, Italian and Portuguese use the
-English ones). `gen_dex.py` emits `dex.h` (the `DEX_TBL[152]` table plus the
-per-language name tables and the `dexName()` accessor). The pet's identity is its
-Pokédex number (persisted in NVS).
+`tools/dex_data.py` es la **fuente única**: nombre, slug, tipo (color de acento + bioma de fondo), línea evolutiva con niveles de Gen-1, rarezas e iniciales. `tools/dex_stats.py` tiene las estadísticas base reales (de PokéAPI). `tools/gen_names.py` extrae los **nombres oficiales localizados** de PokéAPI a `tools/dex_names.py` (solo el francés y el alemán difieren en Gen-1; español, italiano y portugués usan los ingleses). `gen_dex.py` emite `dex.h` (la tabla `DEX_TBL[152]` más las tablas de nombres por idioma y el acceso `dexName()`). La identidad de la mascota es su número de Pokédex (persistido en NVS).
 
-- **Evolution** gen-1 style (levels 16/36/…; stones ≈30, trade ≈40; Eevee
-  branches to whichever evolution you're missing). Each slip-up delays it 1
-  level; it won't evolve with any stat < 40 or while asleep.
+- **Evolución** estilo Gen-1 (niveles 16/36/…; piedras ≈30, intercambio ≈40; Eevee evoluciona hacia lo que falte). Cada descuido la retrasa 1 nivel; no evolucionará con ningún stat < 40 o mientras duerme.
 
-## Battle stats and training
+## Estadísticas de combate y entrenamiento
 
-Each creature has ATK/DEF/SPD = real gen-1 base × **genes** (90–110 %, rolled at
-hatch) + level + **training**:
-- SPEED ← the minigame
-- DEFENSE ← sustained good care (12 h with no slip-ups)
-- STRENGTH ← the training bag (whacking)
+Cada criatura tiene ATK/DEF/VEL = base real de Gen-1 × **genes** (90–110 %, lanzados al nacer) + nivel + **entrenamiento**:
+- VELOCIDAD ← el minijuego
+- DEFENSA ← buen cuidado sostenido (12 h sin descuidos)
+- FUERZA ← el saco de entrenamiento (golpes)
 
-Shown on the Battle page of the stat card. The (hidden) weight goes up with candy
-and burns off with training.
+Se muestran en la página de Combate de la ficha. El peso (oculto) sube con los caramelos y se quema con el entrenamiento.
 
-## Retention: streak, bond, medals, name
+## Retención: racha, vínculo, medallas, nombre
 
-- **Streak** (the player's, persists across creatures): the first care of each
-  real day advances the streak; 3/7/30/100 milestones are celebrated; skipping a
-  day breaks it. Flame badge on the main screen.
-- **Bond** (the creature's): rises slowly with care and petting, drops with slip-ups.
-- **Medals** for the individual (level, berry, streak, bond, final form, fit) +
-  a global counter. Medals page of the stat card.
-- **Name**: touch keyboard; the nickname rules the header and the card.
+- **Racha** (del jugador, persiste entre criaturas): el primer cuidado de cada día real avanza la racha; se celebran los hitos 3/7/30/100; saltarse un día la rompe. Icono de llama en la pantalla principal.
+- **Vínculo** (de la criatura): sube lentamente con el cuidado y las caricias, baja con los descuidos.
+- **Medallas** para el individuo (nivel, baya, racha, vínculo, forma final, en forma) + un contador global. Página de medallas de la ficha.
+- **Nombre**: teclado táctil; el apodo manda en la cabecera y en la ficha.
 
-High streak and bond **improve the egg roll** (rarity and shiny): caring well
-always pays off.
+Una racha y vínculo altos **mejoran el resultado del huevo** (rareza y shiny): cuidar bien siempre compensa.
 
-## Life cycle, eggs by rarity, languages
+## Ciclo de vida, huevos por rareza, idiomas
 
-The life cycle lasts **3 days** of play. Three endings (all leave a new egg):
-**farewell** (final form + 3 days), **release** (long press), **runaway** (all 4
-bars at zero for 1 h). Each bred species is recorded in the **bred Pokédex**
-(normal and shiny separately).
+El ciclo de vida dura **3 días** de juego. Tres finales (todos dejan un nuevo huevo): **despedida** (forma final + 3 días), **liberación** (pulsación larga), **fuga** (las 4 barras a cero durante 1 h). Cada especie criada se anota en la **Pokédex de criados** (normal y shiny por separado).
 
-The egg rolls rarity over the ~79 base forms (47 common / 27 rare / 5 legendary),
-**biased towards the lines you're missing** (all 151 are completable), blessed by
-a farewell and punished by a runaway. Legendaries only with 25+ registered.
-**Shiny** 1/48 (better with streak/bond/farewell).
+El huevo lanza rareza sobre las ~79 formas base (47 comunes / 27 raras / 5 legendarias), **sesgado hacia las líneas que te faltan** (los 151 son completables), bendecido por una despedida y castigado por una fuga. Legendarios solo con 25+ registrados. **Shiny** 1/48 (mejor con racha/vínculo/despedida).
 
-**Languages:** the UI ships in 8 languages — English (default), Spanish, French,
-German, Italian, Portuguese, Japanese and Korean — switchable from the settings
-screen (swipe down).
-**Pokémon names are localized too**: French, German, Japanese and Korean show
-the official names (Bulbizarre, Bisasam, フシギダネ, 이상해씨...). Spanish, Italian
-and Portuguese use the English ones, which is what those regions officially use
-for gen 1. Nidoran♀/♂ read ニドランF/M in Japanese and 니드런 암/수 in Korean: no
-U8g2 unifont subset carries ♀ or ♂, so each language picks its own substitute.
+**Idiomas:** la interfaz viene en 8 idiomas — inglés (por defecto), español, francés, alemán, italiano, portugués, japonés y coreano — seleccionables desde la pantalla de ajustes (deslizar abajo).
+**Los nombres de los Pokémon también están localizados**: francés, alemán, japonés y coreano muestran los nombres oficiales (Bulbizarre, Bisasam, フシギダネ, 이상해씨...). Español, italiano y portugués usan los ingleses, que es lo que se usa oficialmente en esas regiones para la Gen-1. Nidoran♀/♂ aparecen como ニドランF/M en japonés y 니드런 암/수 en coreano: ningún subconjunto de U8g2 lleva ♀ o ♂, así que cada idioma elige su sustituto.
 
-## Backgrounds: biome + real time
+## Fondos: bioma + tiempo real
 
-The idle screen paints the sky from the **RTC's real time** (dawn / day / dusk /
-night with moon and stars) and the ground from the **type's biome** (meadow,
-beach, forest, volcano, mountain, snow). Sleeping forces night.
+La pantalla de inactividad dibuja el cielo según la **hora real del RTC** (amanecer / día / atardecer / noche con luna y estrellas) y el suelo según el **bioma del tipo** (prado, playa, bosque, volcán, montaña, nieve). Dormir fuerza la noche.
 
-## Layout
+## Estructura
 
-- `TamaPoke.ino` — init, game loop, render of every screen, gestures, serial console, audio
-- `pet.h` / `pet.cpp` — pet state and logic (stats, evolution, life cycle, streak/bond/medals, NVS)
-- `sdmon.h` / `sdmon.cpp` — TPK1 (animated) and TPK2 (PMD) sprites + thumbnails, and file reception over USB (PUT/LS)
-- `rtcbat.h` / `rtcbat.cpp` — PCF85063 RTC + AXP2101 PMU (battery, brightness, PWR button)
-- `audio.h` / `audio.cpp` — ES8311 + I2S + Game-Boy-style tone synth (non-blocking task)
-- `i18n.h` / `i18n.cpp` — the 8-language string tables
-- `dex.h` — GENERATED (`gen_dex.py`): the 151 table
-- `species.h` — GENERATED (`sprites.py`): fallback sprites, UI icons, colours
-- `pin_config.h` — the board's official pins
-- `tools/` — pipeline: `dex_data.py` (data), `dex_stats.py`, `dex_names.py` +
-  `gen_names.py` (localized names), `gen_dex.py`,
-  `sprites.py` (workshop), `pack_pmd.py` / `make_thumbs.py`
-  (packers), `pack_bundle.py` (web bundle), `send_sd.py` (SD upload), `touch_log.py`
-- `tools/sdcard/mons/` — the generated .bin files (animated, shiny, PMD, thumbnails)
-- `web/` — the browser installer (ESP Web Tools + Web Serial sprite loader)
+- `TamaPoke.ino` — inicio, bucle de juego, renderizado de cada pantalla, gestos, consola serie, audio
+- `pet.h` / `pet.cpp` — estado y lógica de la mascota (stats, evolución, ciclo de vida, racha/vínculo/medallas, NVS)
+- `sdmon.h` / `sdmon.cpp` — sprites TPK1 (animados) y TPK2 (PMD) + miniaturas, y recepción de archivos por USB (PUT/LS)
+- `rtcbat.h` / `rtcbat.cpp` — RTC PCF85063 + PMU AXP2101 (batería, brillo, botón PWR)
+- `audio.h` / `audio.cpp` — ES8311 + I2S + sintetizador de tonos estilo Game Boy (tarea no bloqueante)
+- `i18n.h` / `i18n.cpp` — las tablas de cadenas en 8 idiomas
+- `dex.h` — GENERADO (`gen_dex.py`): la tabla de los 151
+- `species.h` — GENERADO (`sprites.py`): sprites de respaldo, iconos de UI, colores
+- `pin_config.h` — los pines oficiales de la placa
+- `tools/` — flujo: `dex_data.py` (datos), `dex_stats.py`, `dex_names.py` + `gen_names.py` (nombres localizados), `gen_dex.py`, `sprites.py` (taller), `pack_pmd.py` / `make_thumbs.py` (empaquetadores), `pack_bundle.py` (paquete web), `send_sd.py` (subida a SD), `touch_log.py`
+- `tools/sdcard/mons/` — los archivos .bin generados (animados, shiny, PMD, miniaturas)
+- `web/` — el instalador para navegador (ESP Web Tools + cargador de sprites por Web Serial)
 
-## Serial console (115200, debug)
+## Consola serie (115200, depuración)
 
-`STATS` (full state) · `SPEC <dex>` (change species) · `LVL <n>` · `HATCH` ·
-`SHINY` · `NICK <x>` · `BYE` / `RUN` (farewell / runaway) · `ABANDON` (force the
-runaway-ready state) · `WIPE` (factory reset → new game) · `BEEP` (audio test) ·
-`REG` (Pokédex) · `EGGS` (simulate 20 eggs) · `GAL` (gallery) · `CAREDAY` ·
-`TIME <epoch>` / `RTCSET <epoch>` · `HEALTH` (uptime + heap for the soak test) ·
-`LS` / `PUT` (SD files).
+`STATS` (estado completo) · `SPEC <dex>` (cambiar especie) · `LVL <n>` · `HATCH` ·
+`SHINY` · `NICK <x>` · `BYE` / `RUN` (despedida / fuga) · `ABANDON` (fuerza el estado de fuga) · `WIPE` (reseteo de fábrica → nuevo juego) · `BEEP` (test de audio) · `REG` (Pokédex) · `EGGS` (simular 20 huevos) · `GAL` (galería) · `CAREDAY` ·
+`TIME <epoch>` / `RTCSET <epoch>` · `HEALTH` (uptime + heap para el test de estabilidad) · `LS` / `PUT` (archivos SD).
 
-To test fast: lower `PET_TICK_MS`, `MINUTES_PER_LEVEL` and `FAREWELL_AGE_MIN` in `pet.h`.
+Para probar rápido: baja `PET_TICK_MS`, `MINUTES_PER_LEVEL` y `FAREWELL_AGE_MIN` en `pet.h`.
 
-## Roadmap
+## Hoja de ruta
 
-- **Wild encounters / battle** — designed (see project memory): resolution by
-  ATK/DEF/SPD with PMD Attack/Hurt animations, trainer rank as endgame. Style
-  still to pick (auto / timing / turn-based).
-- **Soak test** 24–48 h (instrumentation ready: `HEALTH` command/heartbeat).
+- **Encuentros salvajes / combate** — diseñado: resolución por ATK/DEF/VEL con animaciones de Ataque/Daño de PMD, rango de entrenador como final del juego. Estilo aún por elegir (automático / timing / por turnos).
+- **Test de estabilidad** 24–48 h (instrumentación lista: comando `HEALTH`/latido).
 
-*(Done: 3D-printed case [published on MakerWorld](https://makerworld.com/es/models/2937822-tamapoke-a-pokemon-pokeball-tamagotchi); repo public with the browser installer + one-click sprite bundle.)*
+*(Hecho: carcasa impresa en 3D [publicada en MakerWorld](https://makerworld.com/es/models/2937822-tamapoke-a-pokemon-pokeball-tamagotchi); repo público con instalador para navegador + paquete de sprites en un clic.)*
 
-## Community forks
+## Forks de la comunidad
 
-- **[TamaPoke — Expanded](https://github.com/ShadowEnemyx/TamaPoke/tree/tamapoke-expanded-update)** by **ShadowEnemy** — a substantial community fork (different author/branch): a full **type-matchup battle system**, all **151 + shinies** with a **Pokédex / collection box** and daily goals, **6 UI languages**, **ES8311 sound**, starter choice and a one-click web installer. Worth a look. 🎮
-- **[TamaPoke](https://github.com/DylanPDao/TamaPoke)** by **DylanPDao** — another substantial fork: **gym battles** and **LAN battles** between two devices, **movesets**, a **party + box** system, an **EV/IV** stat system, and coverage extended **up to Gen 3 (386)**. Keeps the PMD sprite pipeline. 🏆
+- **[TamaPoke — Expanded](https://github.com/ShadowEnemyx/TamaPoke/tree/tamapoke-expanded-update)** por **ShadowEnemy** — un fork importante: sistema de **combate por tipos**, los **151 + shinies** con **Pokédex / caja de colección** y objetivos diarios, **6 idiomas**, **sonido ES8311**, elección de inicial e instalador web. Vale la pena echarle un ojo. 🎮
+- **[TamaPoke](https://github.com/DylanPDao/TamaPoke)** por **DylanPDao** — otro fork sustancial: **combates en gimnasios** y **combates por LAN** entre dos dispositivos, **movimientos**, sistema de **equipo + caja**, sistema de **EV/IV** y cobertura hasta la **Gen 3 (386)**. Mantiene el flujo de sprites PMD. 🏆
 
-## Credits
+## Créditos
 
-All sprites: [PMD SpriteCollab](https://github.com/PMDCollab/SpriteCollab)
-(community, CC BY-NC). Base stats: [PokéAPI](https://pokeapi.co). Pokémon is a ™ of
-Nintendo / Game Freak / The Pokémon Company. Non-commercial, personal-use project.
-Full list in [`CREDITS.md`](CREDITS.md). Version history in
-[`CHANGELOG.md`](CHANGELOG.md) — most of the fixes there came from people
-who built one and reported what they found.
+Todos los sprites: [PMD SpriteCollab](https://github.com/PMDCollab/SpriteCollab) (comunidad, CC BY-NC). Estadísticas base: [PokéAPI](https://pokeapi.co). Pokémon es una marca de Nintendo / Game Freak / The Pokémon Company. Proyecto de uso personal sin fines comerciales. Lista completa en [`CREDITS.md`](CREDITS.md). Historial de versiones en [`CHANGELOG.md`](CHANGELOG.md).
 
-## License
+## Licencia
 
-- **Source code** (firmware + tooling): **[MIT](LICENSE)**.
-- **Sprites & names**: © Nintendo / Game Freak / The Pokémon Company; pixel art
-  from [PMD SpriteCollab](https://github.com/PMDCollab/SpriteCollab) (CC BY-NC 4.0).
-  **Non-commercial use only.**
-- **3D-printed case**: remix of *"Pokeball"* by **yoyothechicken**
-  ([MakerWorld #839922](https://makerworld.com/es/models/839922-pokeball)),
-  licensed **CC BY-NC-SA**, and shared here under the same terms.
+- **Código fuente** (firmware + herramientas): **[MIT](LICENSE)**.
+- **Sprites y nombres**: © Nintendo / Game Freak / The Pokémon Company; pixel art de [PMD SpriteCollab](https://github.com/PMDCollab/SpriteCollab) (CC BY-NC 4.0). **Solo uso no comercial.**
+- **Carcasa impresa en 3D**: remix de *"Pokeball"* por **yoyothechicken** ([MakerWorld #839922](https://makerworld.com/es/models/839922-pokeball)), bajo licencia **CC BY-NC-SA**, y compartida aquí en los mismos términos.
 
-This is an unofficial fan project, not affiliated with or endorsed by Nintendo.
+Este es un proyecto de fans no oficial, no afiliado ni respaldado por Nintendo.

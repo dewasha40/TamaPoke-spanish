@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """Fuente unica de datos de la Pokedex gen 1 para TamaPoke.
 

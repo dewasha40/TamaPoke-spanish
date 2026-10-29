@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """GENERADO por tools/gen_names.py desde PokeAPI - no editar a mano.
 

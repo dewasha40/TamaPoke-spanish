@@ -1,73 +1,63 @@
-# TamaPoke web installer
+# Instalador web de TamaPoke
 
-A one-click page that flashes the firmware and loads the sprites from the browser
-(Chrome/Edge), with no Arduino or drivers. It uses
-[ESP Web Tools](https://esphome.github.io/esp-web-tools/) to flash and **Web
-Serial** to push the sprites to the SD with the firmware's `PUT` protocol (the
-same one as `tools/send_sd.py`).
+Una página de un solo clic que graba el firmware y carga los sprites desde el navegador
+(Chrome/Edge), sin necesidad de Arduino ni drivers. Utiliza
+[ESP Web Tools](https://esphome.github.io/esp-web-tools/) para grabar y **Web
+Serial** para enviar los sprites a la SD con el protocolo `PUT` del firmware (el
+mismo que usa `tools/send_sd.py`).
 
-## Contents
+## Contenido
 
-- `index.html` — the page (flashing + sprite loader).
-- `manifest.json` — ESP Web Tools config (points at the firmware).
-- `firmware/tamapoke.bin` — combined firmware, flashable at `0x0`.
-- `sprites.pak` — all the sprites in one bundle (TPAK), so the page sends them in
-  one click. **Generated** by `tools/pack_bundle.py` (gitignored by default — see
-  *Hosting the sprites* below).
+- `index.html` — la página (grabación + cargador de sprites).
+- `manifest.json` — configuración de ESP Web Tools (apunta al firmware).
+- `firmware/tamapoke.bin` — firmware combinado, grabable en la dirección `0x0`.
+- `sprites.pak` — todos los sprites en un solo paquete (TPAK), para que la página los envíe en un clic. **Generado** por `tools/pack_bundle.py` (ignorado por git por defecto — ver *Alojamiento de los sprites* más abajo).
 
-## Regenerate
+## Regenerar
 
-After changing the firmware or the sprites:
+Tras cambiar el firmware o los sprites:
 
 ```bash
-bash tools/build_web.sh        # recompiles -> firmware/tamapoke.bin AND rebuilds sprites.pak
+bash tools/build_web.sh        # recompila -> firmware/tamapoke.bin Y reconstruye sprites.pak
 ```
 
-## Test locally
+## Probar localmente
 
-Web Serial and ESP Web Tools need a **secure context**: `https://` or
-`http://localhost`. To test:
+Web Serial y ESP Web Tools requieren un **contexto seguro**: `https://` o
+`http://localhost`. Para probar:
 
 ```bash
 cd web && python3 -m http.server 8000
-# open http://localhost:8000 in Chrome/Edge
+# abre http://localhost:8000 en Chrome/Edge
 ```
 
-## End-user flow
+## Flujo para el usuario final
 
-1. **Install TamaPoke** → flashes the firmware (pick the USB port; tick "Erase
-   device" for a fresh board).
-2. **Connect board** + **Load sprites** → downloads `sprites.pak` and copies it to
-   the microSD over USB (progress bar, ~8–10 min). Close the step-1 install tab
-   first: only one program can use the port at a time.
-3. Restart (PWR button) → choose your starter and play.
+1. **Instalar TamaPoke** → graba el firmware (elige el puerto USB; marca "Erase
+   device" si es una placa virgen).
+2. **Conectar placa** + **Cargar sprites** → descarga `sprites.pak` y lo copia a
+   la microSD por USB (barra de progreso, ~8–10 min). Cierra primero la pestaña de
+   instalación del paso 1: solo un programa puede usar el puerto a la vez.
+3. Reiniciar (botón PWR) → elige tu inicial y a jugar.
 
-A hidden "pick them manually" option lets advanced users send their own `.bin`.
+Una opción oculta "elígelos manualmente" permite a los usuarios avanzados enviar sus propios `.bin`.
 
-## Hosting the sprites
+## Alojamiento de los sprites
 
-`sprites.pak` is ~58 MB and **gitignored** so it doesn't bloat the repo. To make
-the one-click sprite loader work on a real deployment, pick one:
+`sprites.pak` ocupa ~58 MB y está en el **.gitignore** para no inflar el repo. Para que el cargador de un solo clic funcione en un despliegue real, elige una opción:
 
-- **Commit it** — add `web/sprites.pak` to git and serve it from Pages. Simple,
-  but doubles the repo's sprite size.
-- **Release asset** — attach `sprites.pak` to a GitHub Release and change the
-  `fetch('sprites.pak')` URL in `index.html` to the release URL (keeps the repo
-  small; watch out for CORS on the asset host).
+- **Comitearlo** — añade `web/sprites.pak` a git y sírvelo desde Pages. Sencillo, pero duplica el tamaño del repo.
+- **Asset de Release** — adjunta `sprites.pak` a una Release de GitHub y cambia la URL de `fetch('sprites.pak')` en `index.html` por la URL del asset (mantiene el repo pequeño; ojo con el CORS en el servidor de assets).
 
-All sprites are from PMD SpriteCollab, CC BY-NC (non-commercial sharing with
-attribution is allowed); see [`../CREDITS.md`](../CREDITS.md).
+Todos los sprites son de PMD SpriteCollab, CC BY-NC; ver [`../CREDITS.md`](../CREDITS.md).
 
-## Deploy (GitHub Pages)
+## Despliegue (GitHub Pages)
 
-1. Repo settings → Pages → serve from `main`, folder `/web` (or move `web/` to
-   `docs/`). Pages gives HTTPS automatically.
-2. URL ends up at `https://<user>.github.io/<repo>/`.
+1. Ajustes del repo → Pages → servir desde `main`, carpeta `/web` (o mueve `web/` a `docs/`). Pages ofrece HTTPS automáticamente.
+2. La URL acabará siendo `https://<usuario>.github.io/<repo>/`.
 
-> **Pages on private repos** needs GitHub Pro/Team. If you make the repo
-> **public** to use Pages for free, decide about the sprites first (see above and
-> CREDITS).
+> **Pages en repos privados** requiere GitHub Pro/Team. Si haces el repo **público** para usar Pages gratis, decide qué hacer con los sprites primero (ver arriba y CREDITS).
 
-## Limitations
+## Limitaciones
 
-- Desktop **Chrome/Edge** only (Web Serial isn't in Firefox/Safari).
+- Solo **Chrome/Edge** de escritorio (Web Serial no está en Firefox/Safari).

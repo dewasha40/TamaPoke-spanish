@@ -1,41 +1,33 @@
-# Credits
+# Créditos
 
-TamaPoke is a **non-commercial, personal-use** project. It does not sell or
-commercially redistribute any copyrighted material. Pokémon and all related
-names, designs and characters are trademarks and © of **Nintendo / Game Freak /
-The Pokémon Company**.
+TamaPoke es un proyecto **personal y sin fines comerciales**. No vende ni redistribuye comercialmente material con derechos de autor. Pokémon y todos los nombres, diseños y personajes relacionados son marcas registradas y © de **Nintendo / Game Freak / The Pokémon Company**.
 
-This project is not affiliated with or endorsed by any of those companies.
+Este proyecto no está afiliado ni respaldado por ninguna de esas compañías.
 
-## Sprites and data
+## Sprites y datos
 
-| Resource | Source | Use in the project |
+| Recurso | Fuente | Uso en el proyecto |
 |---|---|---|
-| **All sprites** (idle, walk, sleep, eat, hurt, attack…) | [PMD Sprite Collaboration (PMDCollab/SpriteCollab)](https://github.com/PMDCollab/SpriteCollab) | Mystery-Dungeon-style animated sprites used everywhere: main screen, stat card, minigame, and the Pokédex grid + detail view |
-| **Gen 1 base stats** | [PokéAPI](https://pokeapi.co) | Real ATK/DEF/SPD/HP for each species |
+| **Todos los sprites** (reposo, andar, dormir, comer, daño, ataque...) | [PMD Sprite Collaboration (PMDCollab/SpriteCollab)](https://github.com/PMDCollab/SpriteCollab) | Sprites animados estilo Mystery Dungeon usados en todo el juego: pantalla principal, ficha, minijuego y Pokédex |
+| **Estadísticas base Gen 1** | [PokéAPI](https://pokeapi.co) | ATK/DEF/VEL/HP reales para cada especie |
 
-The **SpriteCollab** sprites are the work of its community of artists under their
-own terms (Creative Commons Attribution-NonCommercial 4.0). Per-species/per-author
-credit is in the original repository's
-[tracker.json](https://github.com/PMDCollab/SpriteCollab/blob/master/tracker.json).
-Huge thanks to that whole community for an enormous amount of work.
+Los sprites de **SpriteCollab** son obra de su comunidad de artistas bajo sus propios términos (Creative Commons Attribution-NonCommercial 4.0). El crédito detallado por especie y autor se encuentra en el archivo [tracker.json](https://github.com/PMDCollab/SpriteCollab/blob/master/tracker.json) del repositorio original. Muchas gracias a toda esa comunidad por su enorme trabajo.
 
-> **Important if you reuse this repo:** the packaged sprite files
-> (`tools/sdcard/mons/*.bin`) are derived from the sources above. Don't
-> redistribute them commercially. If you publish the project, the clean approach
-> is to distribute **only the code and scripts**, and have each user download and
-> package the sprites from the original sources with `tools/pack_*.py` (or the web
-> installer).
+> **Importante si reutilizas este repo:** los archivos de sprites empaquetados
+> (`tools/sdcard/mons/*.bin`) derivan de las fuentes anteriores. No los
+> redistribuyas comercialmente. Si publicas el proyecto, lo ideal es distribuir
+> **solo el código y los scripts**, y que cada usuario descargue y empaquete los
+> sprites desde las fuentes originales con `tools/pack_*.py` (o el instalador web).
 
 ## Software / hardware
 
-| Component | Author / source |
+| Componente | Autor / fuente |
 |---|---|
 | GFX Library for Arduino | [moononournation](https://github.com/moononournation/Arduino_GFX) |
-| SensorLib (CST9217 touch, PCF85063 RTC) | [Lewis He / lewisxhe](https://github.com/lewisxhe/SensorLib) |
-| XPowersLib (AXP2101 PMU) | [Lewis He / lewisxhe](https://github.com/lewisxhe/XPowersLib) |
-| U8g2 (CJK font data only) | [olikraus](https://github.com/olikraus/u8g2) |
-| Board and pinout | [Waveshare ESP32-S3-Touch-AMOLED-1.75](https://www.waveshare.com/wiki/ESP32-S3-Touch-AMOLED-1.75) |
-| Web installer | [ESP Web Tools](https://esphome.github.io/esp-web-tools/) (Nabu Casa) |
+| SensorLib (táctil CST9217, RTC PCF85063) | [Lewis He / lewisxhe](https://github.com/lewisxhe/SensorLib) |
+| XPowersLib (PMU AXP2101) | [Lewis He / lewisxhe](https://github.com/lewisxhe/XPowersLib) |
+| U8g2 (solo datos de fuentes CJK) | [olikraus](https://github.com/olikraus/u8g2) |
+| Placa y pines | [Waveshare ESP32-S3-Touch-AMOLED-1.75](https://www.waveshare.com/wiki/ESP32-S3-Touch-AMOLED-1.75) |
+| Instalador web | [ESP Web Tools](https://esphome.github.io/esp-web-tools/) (Nabu Casa) |
 
-TamaPoke's own code (firmware and tools) is original work.
+El código propio de TamaPoke (firmware y herramientas) es trabajo original.
